@@ -2,25 +2,29 @@ import { MouseEventHandler } from "react";
 import { Button } from "./Button";
 
 export const Timer = ({
-  timeInMins,
+  timeInSec,
   reset,
   playPause,
+  isRunning,
+  mode,
 }: {
-  timeInMins: number;
   reset: MouseEventHandler<HTMLButtonElement>;
   playPause: MouseEventHandler<HTMLButtonElement>;
+  timeInSec: number;
+  isRunning: boolean;
+  mode: "session" | "break";
 }) => {
-  const seconds = Math.floor((timeInMins * 60) % 60);
+  const seconds = Math.floor(timeInSec % 60);
 
-  const formattedMin = String(timeInMins).padStart(2, "0");
+  const formattedMin = String(Math.floor(timeInSec / 60)).padStart(2, "0");
   const formattedSec = String(seconds).padStart(2, "0");
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center border-2 border-zinc-400 rounded-2xl py-6 px-8">
       <div
         id="timer-label"
-        className="text-2xl font-semibold text-center leading-none"
+        className="text-2xl font-semibold text-center leading-none capitalize"
       >
-        Session
+        {mode}
       </div>
 
       <div id="time-left" className="text-7xl font-bold text-center">
@@ -30,11 +34,17 @@ export const Timer = ({
       <div className="flex items-center justify-center gap-4 mt-3">
         <Button
           id="start_stop"
-          label="Pause/Play"
+          label={isRunning ? "Pause" : "Play"}
           size="md"
           onClick={playPause}
         />
-        <Button id="reset" label="Reset" size="md" onClick={reset} />
+        <Button
+          id="reset"
+          label="Reset"
+          size="md"
+          onClick={reset}
+          disabled={isRunning}
+        />
       </div>
     </div>
   );
