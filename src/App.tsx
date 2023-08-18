@@ -1,12 +1,18 @@
+import { Break } from "./components/Break";
+import { Session } from "./components/Session";
+import { Timer } from "./components/Timer";
+
 function App() {
   return (
-    <>
-      <div className="flex items-center justify-center h-screen">
-        <h1 className="text-4xl font-bold text-blue-700 text-center">
-          VITE & TailwindCSS Starter
-        </h1>
+    <div>
+      <div className="flex flex-col items-center max-w-xl mx-auto mt-16 p-8 border-2 border-gray-600 rounded-2xl">
+        <div className="flex justify-between self-stretch">
+          <Break />
+          <Session />
+        </div>
+        <Timer />
       </div>
-    </>
+    </div>
   );
 }
 
