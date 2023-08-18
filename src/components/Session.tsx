@@ -1,6 +1,15 @@
+import { MouseEventHandler } from "react";
 import { Button } from "./Button";
 
-export const Session = ({ timeInMins }: { timeInMins: number }) => {
+export const Session = ({
+  timeInMins,
+  increment,
+  decrement,
+}: {
+  timeInMins: number;
+  increment: MouseEventHandler<HTMLButtonElement>;
+  decrement: MouseEventHandler<HTMLButtonElement>;
+}) => {
   const seconds = Math.floor((timeInMins * 60) % 60);
 
   const formattedMin = String(timeInMins).padStart(2, "0");
@@ -15,8 +24,8 @@ export const Session = ({ timeInMins }: { timeInMins: number }) => {
         {`${formattedMin}:${formattedSec}`}
       </p>
       <div className="flex gap-3 items-center justify-center mt-3">
-        <Button id="session-increment" label="+" />
-        <Button id="session-decrement" label="-" />
+        <Button id="session-increment" label="+" onClick={increment} />
+        <Button id="session-decrement" label="-" onClick={decrement} />
       </div>
     </div>
   );

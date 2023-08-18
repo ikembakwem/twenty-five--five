@@ -1,6 +1,15 @@
+import { MouseEventHandler } from "react";
 import { Button } from "./Button";
 
-export const Timer = ({ timeInMins }: { timeInMins: number }) => {
+export const Timer = ({
+  timeInMins,
+  reset,
+  playPause,
+}: {
+  timeInMins: number;
+  reset: MouseEventHandler<HTMLButtonElement>;
+  playPause: MouseEventHandler<HTMLButtonElement>;
+}) => {
   const seconds = Math.floor((timeInMins * 60) % 60);
 
   const formattedMin = String(timeInMins).padStart(2, "0");
@@ -19,8 +28,13 @@ export const Timer = ({ timeInMins }: { timeInMins: number }) => {
       </div>
 
       <div className="flex items-center justify-center gap-4 mt-3">
-        <Button id="start_stop" label="Pause/Play" size="md" />
-        <Button id="reset" label="Reset" size="md" />
+        <Button
+          id="start_stop"
+          label="Pause/Play"
+          size="md"
+          onClick={playPause}
+        />
+        <Button id="reset" label="Reset" size="md" onClick={reset} />
       </div>
     </div>
   );
