@@ -1,22 +1,11 @@
-import { MouseEventHandler } from "react";
 import { Button } from "./Button";
+import { useClock } from "../contexts/ClockConext";
 
-export const Timer = ({
-  timeInSec,
-  reset,
-  playPause,
-  isRunning,
-  mode,
-}: {
-  reset: MouseEventHandler<HTMLButtonElement>;
-  playPause: MouseEventHandler<HTMLButtonElement>;
-  timeInSec: number;
-  isRunning: boolean;
-  mode: "session" | "break";
-}) => {
-  const seconds = Math.floor(timeInSec % 60);
+export const Timer = () => {
+  const { timer, isRunning, dispatch, mode } = useClock();
+  const seconds = Math.floor(timer % 60);
 
-  const formattedMin = String(Math.floor(timeInSec / 60)).padStart(2, "0");
+  const formattedMin = String(Math.floor(timer / 60)).padStart(2, "0");
   const formattedSec = String(seconds).padStart(2, "0");
   return (
     <div className="flex flex-col items-center border-2 border-zinc-400 rounded-2xl py-6 px-8">
@@ -36,13 +25,13 @@ export const Timer = ({
           id="start_stop"
           label={isRunning ? "Pause" : "Play"}
           size="md"
-          onClick={playPause}
+          onClick={() => dispatch({ type: "playPause" })}
         />
         <Button
           id="reset"
           label="Reset"
           size="md"
-          onClick={reset}
+          onClick={() => dispatch({ type: "reset" })}
           disabled={isRunning}
         />
       </div>

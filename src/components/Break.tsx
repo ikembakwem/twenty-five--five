@@ -1,36 +1,27 @@
+import { useClock } from "../contexts/ClockConext";
 import { Button } from "./Button";
-import { MouseEventHandler } from "react";
 
-export const Break = ({
-  timeInSec,
-  increment,
-  decrement,
-  isRunning,
-}: {
-  timeInSec: number;
-  increment: MouseEventHandler<HTMLButtonElement>;
-  decrement: MouseEventHandler<HTMLButtonElement>;
-  isRunning: boolean;
-}) => {
+export const Break = () => {
+  const { breakLength, dispatch, isRunning } = useClock();
   const typeStyle = "text-2xl font-semibold text-center";
 
   return (
     <div id="break-label">
       <h3 className={typeStyle}>Break Length</h3>
       <p id="break-length" className="text-3xl font-bold text-center">
-        {Math.floor(timeInSec / 60)}
+        {breakLength}
       </p>
       <div className="flex gap-3 items-center justify-center mt-3">
         <Button
           id="break-increment"
           label="+"
-          onClick={increment}
+          onClick={() => dispatch({ type: "incrementBreak" })}
           disabled={isRunning}
         />
         <Button
           id="break-decrement"
           label="-"
-          onClick={decrement}
+          onClick={() => dispatch({ type: "decrementBreak" })}
           disabled={isRunning}
         />
       </div>
