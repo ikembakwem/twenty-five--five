@@ -32,7 +32,6 @@ export const Timer = () => {
           label="Reset"
           size="md"
           onClick={() => dispatch({ type: "reset" })}
-          disabled={isRunning}
         />
       </div>
     </div>

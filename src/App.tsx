@@ -5,28 +5,29 @@ import { Timer } from "./components/Timer";
 import { useClock } from "./contexts/ClockConext";
 
 function App() {
-  const { isRunning, sessionLength, timer, dispatch } = useClock();
+  const { isRunning, mode, timer, dispatch } = useClock();
 
   useEffect(() => {
     let interval: number | undefined;
 
     if (isRunning) {
       interval = setInterval(() => {
-        if (sessionLength > 0) {
+        if (timer > 0) {
           dispatch({ type: "countdown" });
+          console.log("Running countdown");
         }
         if (timer === 0) {
-          dispatch({ type: "switchToBreakMode" });
-          if (timer === 0) {
-            dispatch({ type: "reset" });
-          }
+          mode === "session"
+            ? dispatch({ type: "switchToBreakMode" })
+            : dispatch({ type: "switchToSessionMode" });
+          console.log("Switching mode from", mode);
         }
       }, 1000);
     }
     return () => {
       clearInterval(interval);
     };
-  }, [sessionLength, isRunning, timer]);
+  }, [isRunning, timer, mode]);
 
   return (
     <div>

@@ -43,7 +43,8 @@ type Action =
   | { type: "playPause" }
   | { type: "reset" }
   | { type: "countdown" }
-  | { type: "switchToBreakMode" };
+  | { type: "switchToBreakMode" }
+  | { type: "switchToSessionMode" };
 
 const reducer = (state: ClockState, action: Action) => {
   switch (action.type) {
@@ -90,6 +91,9 @@ const reducer = (state: ClockState, action: Action) => {
     }
     case "switchToBreakMode": {
       return { ...state, mode: "break", timer: state.breakLength * 60 };
+    }
+    case "switchToSessionMode": {
+      return { ...state, mode: "session", timer: state.sessionLength * 60 };
     }
   }
 };
