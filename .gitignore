@@ -25,9 +25,8 @@ dist-ssr
 *.env.local
 *.env
 *.env.production
+
 # Lock files
-\nyarn.lock
-\nyarn.lock
 yarn.lock
 package-lock.json
 pnpm-lock.yaml
