@@ -18,7 +18,7 @@ function App() {
         if (timer === 0) {
           mode === "session"
             ? dispatch({ type: "switchToBreakMode" })
-            : dispatch({ type: "switchToSessionMode" });
+            : dispatch({ type: "reset" });
         }
       }, 1000);
     }

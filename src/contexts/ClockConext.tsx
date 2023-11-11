@@ -1,10 +1,4 @@
-import {
-  Dispatch,
-  ReactNode,
-  createContext,
-  useContext,
-  useReducer,
-} from "react";
+import { Dispatch, ReactNode, createContext, useContext, useReducer } from "react";
 
 interface ClockState {
   timer: number;
@@ -27,12 +21,12 @@ const initialClockState: ClockState = {
   timer: 25 * 60,
   breakLength: 5,
   isRunning: false,
-  mode: "session",
+  mode: "session"
 };
 
 const ClockContext = createContext<ClockContextState>({
   ...initialClockState,
-  dispatch: () => {},
+  dispatch: () => {}
 });
 
 type Action =
@@ -53,7 +47,7 @@ const reducer = (state: ClockState, action: Action) => {
         return {
           ...state,
           sessionLength: state.sessionLength + 1,
-          timer: (state.sessionLength + 1) * 60,
+          timer: (state.sessionLength + 1) * 60
         };
       }
       return state;
@@ -63,7 +57,7 @@ const reducer = (state: ClockState, action: Action) => {
         return {
           ...state,
           sessionLength: state.sessionLength - 1,
-          timer: (state.sessionLength - 1) * 60,
+          timer: (state.sessionLength - 1) * 60
         };
       }
       return state;
@@ -100,11 +94,7 @@ const reducer = (state: ClockState, action: Action) => {
 
 export const ClockProvider = ({ children }: Props) => {
   const [state, dispatch] = useReducer(reducer, initialClockState);
-  return (
-    <ClockContext.Provider value={{ ...state, dispatch }}>
-      {children}
-    </ClockContext.Provider>
-  );
+  return <ClockContext.Provider value={{ ...state, dispatch }}>{children}</ClockContext.Provider>;
 };
 
 export const useClock = () => useContext(ClockContext);
